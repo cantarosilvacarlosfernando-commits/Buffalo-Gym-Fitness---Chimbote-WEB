@@ -34,7 +34,7 @@ function aplicarEstado() {
 abrirMenu.addEventListener("click", () => {
     if (!esMovil()) return;
 
-    menu.style.display = "block";
+    menu.style.display = "flex";
     abrirMenu.style.display = "none";
     cerrarMenu.style.display = "block";
 });
@@ -57,3 +57,4 @@ menuLinks.forEach(link => {
 // ===== EVENTOS =====
 window.addEventListener("resize", aplicarEstado);
 window.addEventListener("DOMContentLoaded", aplicarEstado);
+
