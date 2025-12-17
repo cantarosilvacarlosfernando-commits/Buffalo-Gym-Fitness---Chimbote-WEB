@@ -7,52 +7,49 @@ function esMovil() {
     return window.innerWidth <= 600;
 }
 
-// ===== MÓVIL =====
-function abrirMenuMovil() {
-    if (!esMovil()) return;
-
-    menu.style.display = "block";
-    menu.style.transform = "translateX(0)";
-
-    abrirMenu.style.display = "none";
-    cerrarMenu.style.display = "block";
-}
-
-function cerrarMenuMovil() {
-    if (!esMovil()) return;
-
-    menu.style.display = "none";
-
-    cerrarMenu.style.display = "none";
-    abrirMenu.style.display = "block";
-}
-
-// ===== EVENTOS =====
-abrirMenu.addEventListener("click", abrirMenuMovil);
-cerrarMenu.addEventListener("click", cerrarMenuMovil);
-
-menuLinks.forEach(link => {
-    link.addEventListener("click", () => {
-        if (esMovil()) cerrarMenuMovil();
-    });
-});
-
-// ===== LIMPIAR ESTILOS EN PC =====
-function estadoCorrecto() {
-    if (!esMovil()) {
-        // PC → dejar que mande SOLO el CSS
-        menu.style.removeProperty("display");
-        menu.style.removeProperty("transform");
-
-        abrirMenu.style.removeProperty("display");
-        cerrarMenu.style.removeProperty("display");
-    } else {
+// ===== ESTADO GLOBAL CORRECTO =====
+function aplicarEstado() {
+    if (esMovil()) {
         // MÓVIL
         menu.style.display = "none";
         abrirMenu.style.display = "block";
         cerrarMenu.style.display = "none";
+    } else {
+        // PC (CLAVE)
+        menu.style.display = "flex";
+        abrirMenu.style.display = "none";   // ← ESTO ES LO QUE FALTABA
+        cerrarMenu.style.display = "none";
     }
 }
 
-window.addEventListener("resize", estadoCorrecto);
-window.addEventListener("DOMContentLoaded", estadoCorrecto);
+// ===== MÓVIL =====
+abrirMenu.addEventListener("click", () => {
+    if (!esMovil()) return;
+
+    menu.style.display = "block";
+    abrirMenu.style.display = "none";
+    cerrarMenu.style.display = "block";
+});
+
+cerrarMenu.addEventListener("click", () => {
+    if (!esMovil()) return;
+
+    menu.style.display = "none";
+    cerrarMenu.style.display = "none";
+    abrirMenu.style.display = "block";
+});
+
+// ===== LINKS =====
+menuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        if (esMovil()) {
+            menu.style.display = "none";
+            cerrarMenu.style.display = "none";
+            abrirMenu.style.display = "block";
+        }
+    });
+});
+
+// ===== EVENTOS =====
+window.addEventListener("resize", aplicarEstado);
+window.addEventListener("DOMContentLoaded", aplicarEstado);
