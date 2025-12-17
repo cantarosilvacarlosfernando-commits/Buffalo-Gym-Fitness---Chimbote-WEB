@@ -7,18 +7,26 @@ function esMovil() {
     return window.innerWidth <= 600;
 }
 
-// ===== ESTADO GLOBAL CORRECTO =====
 function aplicarEstado() {
     if (esMovil()) {
-        // MÓVIL
+        // ===== MÓVIL =====
         menu.style.display = "none";
+
         abrirMenu.style.display = "block";
         cerrarMenu.style.display = "none";
+
+        abrirMenu.style.pointerEvents = "auto";
+        cerrarMenu.style.pointerEvents = "auto";
     } else {
-        // PC (CLAVE)
+        // ===== PC (CLAVE REAL) =====
         menu.style.display = "flex";
-        abrirMenu.style.display = "none";   // ← ESTO ES LO QUE FALTABA
+
+        abrirMenu.style.display = "none";
         cerrarMenu.style.display = "none";
+
+        // 🔒 desactivar completamente
+        abrirMenu.style.pointerEvents = "none";
+        cerrarMenu.style.pointerEvents = "none";
     }
 }
 
@@ -42,11 +50,7 @@ cerrarMenu.addEventListener("click", () => {
 // ===== LINKS =====
 menuLinks.forEach(link => {
     link.addEventListener("click", () => {
-        if (esMovil()) {
-            menu.style.display = "none";
-            cerrarMenu.style.display = "none";
-            abrirMenu.style.display = "block";
-        }
+        aplicarEstado(); // 🔥 fuerza estado correcto
     });
 });
 
