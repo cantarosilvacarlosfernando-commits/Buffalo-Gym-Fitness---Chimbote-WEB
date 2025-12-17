@@ -1,0 +1,16 @@
+#090A0E
+#2D9ED8
+#F7F7F7
+
+
+ico de menu :
+
+link
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+amburguesa <button class="menu-toggle">
+    <i class="fas fa-bars"></i> <!-- Icono de menú hamburguesa -->
+</button>
+
+cerrar:
+<i class="fa-solid fa-xmark"></i>
+
